@@ -1,0 +1,160 @@
+<p id="date" class="tg_ln fnt_clr_1">
+    <i class="text-shadow-dark far fa-calendar-alt large_v2 fnt_clr_1"> </i> 
+    &nbsp;&nbsp;<span id="date_disp"></span>
+</p>
+<p id="time" class="tg_ln fnt_clr_1">
+    <i class="text-shadow-dark fas fa-clock large_v2 fnt_clr_1"> </i> 
+    &nbsp;&nbsp;<span id="time_disp"></span>
+</p>
+<div class="wrapper min" id="home">
+    <div class="body-container bottom o-pad bg_3 vert_center al_cntr">
+        <div id="display_2">
+            <div class="home_log active">
+                <img class="image_logo large" src="../assets/images/logo.png">
+                <h1 class="fnt_clr_4 wc_ltr medium">CIMO</h1>
+            </div>
+        </div>
+        <div id="option_box" class="bg_6 hover_shdw">
+            <ul class="flex">
+                <li>
+                    <a href="camera" class="vert_center hm_lk">
+                        <i class="i fas fa-video large"></i>
+                        <p class="tg_ln fnt_clr_1  small">Camera</p>
+                    </a>
+                </li>
+                <li class=" ">
+                    <a href="settings" class="vert_center hm_lk non_c">
+                        <i class="fnt_clr_1 i fas fa-cog large"></i>
+                        <p class="tg_ln fnt_clr_1  small">Settings</p>
+                    </a>
+                </li>
+                 <li class="">
+                    <a href="user" class="vert_center hm_lk non_c">
+                        <i class="i fas fa-user large"></i>
+                        <p class="tg_ln fnt_clr_1  small">Profile</p>
+                    </a>
+                </li>
+                 <li class="">
+                    <a href="extended" class="vert_center hm_lk non_c">
+                        <i class="i fas fa-window-restore large"></i>
+                        <p class="tg_ln fnt_clr_1  small">Extended</p>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="logout" class="vert_center hm_lk non_c">
+                        <i class="i fas fa-sign-out-alt large"></i>
+                        <p class="tg_ln fnt_clr_1  small">Log out</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function(){
+
+        display_dt();
+
+        function display_dt(){
+
+            const date = new Date();
+
+            const month_array = ['January', 'Febuary', 'March', 'April', 'May', 'June', 
+            'July', 'August', 'September', 'October', 'November', 'December'];
+
+            const month = month_array[date.getMonth()];
+            const year = date.getFullYear();
+            const day = date.getDate();
+
+            const hour = date.getHours();
+            const minutes = date.getMinutes();
+            const seconds = date.getSeconds();
+
+            var p_a = "AM";
+
+            var fomratted_hour = hour;
+
+            var fomratted_minutes = minutes;
+
+            var fomratted_seconds = seconds;
+
+            if(seconds < 10){
+                fomratted_seconds = '0' + fomratted_seconds;
+            }
+
+            if(minutes < 10){
+                fomratted_minutes = '0' + fomratted_minutes;
+            }
+
+            if(hour > 12){
+                fomratted_hour = hour - 12;
+                p_a = "PM";
+                if(fomratted_hour < 10){
+                    fomratted_hour = '0' + fomratted_hour;
+                }
+            }
+
+            $('#date_disp').html(month + ', ' + day + ', ' + year)
+            $('#time_disp').html(fomratted_hour + ':' + fomratted_minutes + ':' + fomratted_seconds + ' ' + p_a);
+        }
+
+        setInterval(()=>{
+            display_dt();
+        }, 1000)
+
+        eel.expose(violation_force_Log_out);
+        function violation_force_Log_out(){
+            $.ajax({
+                method: 'POST',
+                data: {
+                    'data' : 'logout',
+                    'token': [sessionStorage.getItem('jwt_token'), sessionStorage.getItem('jwt_key')],
+                },
+                url: 'http://localhost/cimo_desktop/app/logout.php',
+                dataType: 'JSON',
+                success: function(data){
+                    console.log(data)
+                    if(data.status === "Success"){
+                        sessionStorage.clear();
+                        $.get('login.html', function(data){
+                            $('#display').html(data)
+                        })
+                    }else{
+                        alert('Something went wrong');
+                    }
+                }
+            })
+        }
+
+        $('.hm_lk').click(function(e){
+            e.preventDefault();
+            $('#option_box').removeClass('deac');
+            var url = $(this).attr('href') + '.html';
+            $('.hm_lk').removeClass('active_hm_link');
+            $(this).addClass('active_hm_link');
+            $('.hm_lk').children('i').removeClass('active');
+            $(this).children('i').addClass('active');
+            $('.hm_lk').children('i').removeClass('text-shadow-dark');
+            $(this).children('i').addClass('text-shadow-dark');
+            $('.hm_lk').children('p').removeClass('active');
+            $(this).children('p').addClass('active');
+            $('.hm_lk').children('p').removeClass('bold');
+            $(this).children('p').addClass('bold');
+            if(url == 'user.html'){
+                $.get(url, function(data){
+                    $('#display').html(data);
+                });
+            }else{
+                setTimeout(() => {
+                    $('#option_box').addClass('deac');
+                }, 500);
+                $.get(url, function(data){
+                    $('#display_2').html(data);
+                });
+            }
+        })
+
+    })
+
+</script>

@@ -1,0 +1,93 @@
+<div id="camera" class="home_log">
+    <div class="box_us bg_6 center_center o-pad top">
+        <img class="image_logo borderless medium" src="../assets/images/on_image.png">
+        <p id="cam_stats" class="wc_ltr_v2 small txt_center bold fnt_clr_1">Do you want to turn on the camera?</p>
+        <p id="" class="tag tg_ln small">Note: Enabling camera will disable other functions</p>
+        <p id="tag" class="tag tg_ln small">Allows you to monitor the count of your establishment</p>
+        <section class="line bg_7"></section>
+        <div class="btn_box">
+            <button id="start_cam" class="hover_shdw fnt_clr_3 bg_9 btn_borderless" >Start Camera &nbsp;&nbsp;<i class="fas play"></i></button>
+        </div>
+    </div>    
+</div>
+<script>
+     $(document).ready(async function(){
+
+       
+
+        check_stats();
+        
+        function check_stats(){
+            if(sessionStorage.getItem('was_camera_on')){
+                $.get('reset.html', function(data){
+                    $('#camera').html(data)
+                })
+            }
+        }
+
+        function disable(){
+            $('.non_c').addClass('disabled');
+            $('.non_c').children('i').addClass('disabled');
+            $('.non_c').children('p').addClass('disabled');
+        }
+
+        function enable(){
+            $('.non_c').removeClass('disabled');
+            $('.non_c').children('i').removeClass('disabled');
+            $('.non_c').children('p').removeClass('disabled');
+        }
+
+        $('#start_cam').click(function(e){
+            e.preventDefault()
+            if(sessionStorage.getItem('window_status') == 0){
+                $('#cam_stats').html('Extended Display must be enabled');
+                $('#tag').html('Notice: Please enable Extended Display Window');
+            }else{
+                $(this).html('Starting &nbsp;&nbsp;<i class="fas fa-cog"></i>');
+                $(this).removeClass('hover_shdw')
+                $(this).addClass('unclickable')
+                disable()
+                $.ajax({
+                    method: 'POST',
+                    data: {
+                        'data' : ['cap_id', 'cnt_id', 'est_id', 'acc_id'],
+                        'token' : [sessionStorage.getItem('jwt_token'), sessionStorage.getItem('jwt_key')]
+                    },
+                    url: 'http://localhost/cimo_desktop/app/decoder.php',
+                    success: function(data){
+                        data = JSON.parse(data);
+                        eel.start_cam(data[0], data[1], data[2], data[3], true)
+                        console.log(data[3])
+                        console.log(data[1])
+                        console.log(data[0])
+                        console.log(data[2])
+                    }
+                })
+            }
+        })
+
+        eel.expose(say)
+        function say(){
+            console.log('wait')
+        }
+
+        eel.expose(say1)
+        function say1(msg){
+            console.log(msg)
+        }
+
+        eel.expose(camera_up)
+        function camera_up(data){
+            camera_stats = data
+            if(camera_stats == true){
+                disable()
+                $('#start_cam').html('Running &nbsp;&nbsp;<i class="fas fa-play"></i>');
+                $('#cam_stats').html('Camera is currently running &nbsp;&nbsp;<i class="fas fa-play"></i>');
+                $('#tag').html('Note: select camera output and press D to stop');
+            }else{
+                sessionStorage.setItem('was_camera_on', true)
+                check_stats();
+            }
+        }
+     })
+</script>

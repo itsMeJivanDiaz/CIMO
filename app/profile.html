@@ -1,0 +1,204 @@
+<div class="main-header bg_3 flex">
+    <div class="header-txt">
+        <p class="tg_ln_v3 fnt_clr_1">Hi, <span class="capitalize est_name"></span></p>
+        <p class="tg_ln fnt_clr_2 notif">Do you want to make any changes in 
+            <br>your profile?</p>
+    </div>
+    <img class="header-img" src="../assets/images/profile.png">
+</div>
+<div class="user-form">
+    <form id="edit_form_pic">
+        <div class="flex_v2 edit-box">
+            <label class="fnt_clr_2 tg_ln">
+                Profile picture
+            </label>
+            <div class="spacer_v2"></div>
+            <div class="edit-image-holder">
+                <input accept="image" id="file" type="file" name="file" hidden>
+                <section class="icon-box-edit  flex">
+                    <img class="image_logo_edit" src="">
+                    <button type="button" id="edit_pic">
+                        <i class="text-shadow-dark fnt_clr_6 fas fa-camera"></i>
+                    </button>
+                </section>
+            </div>
+            <button class="bg_9 disabled" id="submit_btn" type="submit">
+                Upload Image &nbsp; &nbsp;<i class="fas fa-cloud-upload-alt"></i>
+            </button>
+        </div>
+    </form>
+    <br>
+    <form class="edit_form">
+        <div class="flex_v2 edit-box">
+            <label class="fnt_clr_2 tg_ln">
+                Establishment Name
+            </label>
+            <div class="spacer_v2"></div>
+            <div class="input-holder_v2">
+                <input name="process" value="edit_name" hidden readonly>
+                <input name="name" class="edit capitalize" id="edit_name" value="" placeholder="Edit Establishment Name">
+            </div>
+            <button data="edit_name" type="submit" class="edit_spec btn_1 bg_1 fnt_clr_3 tg_ln_v3 hover_shdw">
+                <i class="fas fa-pen-fancy"></i>
+            </button>
+        </div>
+    </form>
+    <form class="edit_form">
+        <div class="flex_v2 edit-box">
+            <label class="fnt_clr_2 tg_ln">
+                Establishment type
+            </label>            
+            <div class="spacer_v2"></div>
+            <div class="input-holder_v2">
+                <input name="process" value="edit_type" hidden readonly>
+                <select class="edit" name="type" id="edit_type">
+                    <option value="">Select Type</option>
+                </select>
+            </div>
+            <button type="submit" class="edit_spec btn_1 bg_1 fnt_clr_3 tg_ln_v3 hover_shdw"><i class="fas fa-pen-fancy"></i></button>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function(){
+
+        get();
+
+        $('select.edit').change(function(){
+            $(this).css('color', '#616161');
+        })
+
+        $('input.edit').keydown(function(){
+            $(this).css('color', '#616161');
+        })
+
+        $('.edit_form').submit(function(e){
+            e.preventDefault();
+            var data = $(this).serializeArray();
+            var check = $(this).children().find('.edit').map(function(){
+                if($(this).val() === ""){
+                    return false;
+                    return;
+                }else{
+                    return true;
+                    return;
+                }
+            }); 
+
+            if(check[0] === true){
+                $(this).children().find('.edit').css('color', '#616161');
+                var anim_shadow = $(this).children().find('.edit_spec')
+                .removeClass('hover_shdw').addClass('unclickable')
+                $('.edit_spec').addClass('unclickable')
+                $(this).children().find('.edit').removeClass('error');
+                $('.notif').html('Updating...');
+                $.ajax({
+                    method: 'POST',
+                    data: {
+                        'data' : data, 
+                        'token' : [sessionStorage.getItem('jwt_token'), sessionStorage.getItem('jwt_key')]
+                    },
+                    url : 'http://localhost/cimo_desktop/app/update_profile.php',
+                    dataType: 'JSON',
+                    success: function(data){
+                        console.log(data)
+                        if(data.status === "Success"){
+                            setTimeout(function(){
+                                $('.notif').html('<i class="fnt_clr_6 fas fa-check-circle"></i> ' + data.message + ', anything else?');
+                                anim_shadow.addClass('hover_shdw')
+                                .removeClass('unclickable');
+                                $('.edit_spec').removeClass('unclickable')
+                                sessionStorage.setItem(data.set, data.data);
+                                sessionStorage.setItem('jwt_token', data.token)
+                                $('.est_name').html(data.data)
+                                $('.edit_form').trigger('reset');
+                                get();
+                            }, 2000);
+                        }else if(data.status == "Error"){
+                            setTimeout(function(){
+                                anim_shadow.addClass('hover_shdw')
+                                .removeClass('unclickable');
+                                $('.edit_spec').removeClass('unclickable')
+                                $('.notif').html('<i class="fnt_clr_6 fas fa-times-circle"></i> ' + data.message + ', please try again.');
+                            }, 2500);
+                        }
+                    }
+                });
+            }else{
+                $(this).children().find('.edit').addClass('error');
+                $(this).children().find('.edit').css('color', 'red');
+            }
+
+        })
+
+        function get(){
+
+            $('.est_name').html(sessionStorage.getItem('est_name') + ' (' + sessionStorage.getItem('est_type') + ')');
+            if(sessionStorage.getItem('est_logo') == 'none'){
+                $('.image_logo_edit').attr('src', '../assets/images/logo.png');
+            }else{
+                $('.image_logo_edit').attr('src', '../uploads/' + sessionStorage.getItem('est_logo'));
+            }
+        }
+
+        $.getJSON('iatf_guide.json', function(data){
+            $.each(data, function(key, value){
+                $('#edit_type').append('<option value="'+key+'">'+key+'</option>')
+            })
+        })
+        
+        $('#edit_pic').click(function(){
+            $('#file').click();
+        })
+
+        $('#file').change(function(e){
+            var [file] = e.target.files;
+            if(file){
+                pick_img = 1;
+                $('#submit_btn').addClass('hover_shdw');
+                $('#submit_btn').removeClass('disabled');
+                $('.image_logo_edit').attr('src', URL.createObjectURL(file));
+            }
+        })
+
+        $('#edit_form_pic').submit(function(e){
+            e.preventDefault();
+            $('.notif').html('Updating...');
+            var formdata = new FormData(this)
+            formdata.append('token', sessionStorage.getItem('jwt_token'));
+            formdata.append('key', sessionStorage.getItem('jwt_key'));
+            for(var pair of formdata.entries()){
+                console.log(pair[0] + ' ' + pair[1])
+            }
+            if(pick_img == 1){
+                $('#submit_btn').removeClass('hover_shdw');
+                $('#submit_btn').addClass('disabled');
+                pick_img = 0;
+                $.ajax({
+                    method: 'POST',
+                    data: formdata,
+                    url: 'http://localhost/cimo_desktop/app/upload.php',
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    dataType: 'JSON',
+                    success: function(data){
+                        if(data.status == "Success"){
+                            setTimeout(function(){
+                                $('.notif').html('<i class="fnt_clr_6 fas fa-check-circle"></i> ' + data.message + ', anything else?')
+                                sessionStorage.setItem('est_logo', data.data_url);
+                                sessionStorage.setItem('jwt_token', data.token)
+                                $('#image_logo').attr('src', '../uploads/' + data.data_url);
+                                get();
+                            }, 2500);
+                        }else{
+                            setTimeout(function(){
+                                $('.notif').html('<i class="fnt_clr_6 fas fa-times-circle"></i> ' + data.message + ', please try again.')
+                            }, 2500);
+                        }
+                    }   
+                })
+            }
+        })
+    })
+</script>

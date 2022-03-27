@@ -1,0 +1,275 @@
+{
+	"Acupunture / Electro Cautery": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Aesthetics": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Amusement Arcade": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Amusement Park": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Bar": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "can not operate",
+		"Alert Level 3": "can not operate",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Barber Shop": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Beauty Parlor": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Beauty Salon": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Billiard Hall": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Bowling Alley": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Cinema": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "can not operate",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Club": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "can not operate",
+		"Alert Level 3": "can not operate",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Cockpits": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "can not operate",
+		"Alert Level 3": "can not operate",
+		"Alert Level 2": "can not operate",
+		"Alert Level 1": "1"
+	},
+	"Commissary": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Concert Hall": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "can not operate",
+		"Alert Level 3": "can not operate",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Cosmetic / Derma Clinic": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Eatery": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Fitness Studio": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Gym": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Indoor non-contact sports court": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Internet Cafe": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Karaoke Bar": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "can not operate",
+		"Alert Level 3": "can not operate",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Kiddie ride": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "can not operate",
+		"Alert Level 3": "can not operate",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Kiosks": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Make-Up": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Massage / Sports Therapy": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Medical Aesthetic Clinics": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Meeting Venue": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Nail Spa": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Playground": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "can not operate",
+		"Alert Level 3": "can not operate",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Playroom": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "can not operate",
+		"Alert Level 3": "can not operate",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Reflexology": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Religious Gathering Venue": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.1",
+		"Alert Level 3": "0.3",
+		"Alert Level 2": "0.5",
+		"Alert Level 1": "1"
+	},
+	"Restaurant": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Swimming Pool": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Tanning Service / Body Pierce Service / Tattoo Service": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Theater": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "can not operate",
+		"Alert Level 3": "can not operate",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Tourists Attraction": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	},
+	"Wellness / Holistic Center": {
+		"Alert Level 5": "can not operate",
+		"Alert Level 4": "0.10",
+		"Alert Level 3": "0.30",
+		"Alert Level 2": "0.50",
+		"Alert Level 1": "1"
+	}
+}

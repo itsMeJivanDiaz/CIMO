@@ -1,0 +1,366 @@
+<div class="main-header bg_3 flex">
+    <div class="header-txt">
+        <p class="tg_ln_v3 fnt_clr_1">Hi, <span class="est_name capitalize"></span></p>
+        <p class="tg_ln fnt_clr_2 notif">Do you want to make any changes in 
+            <br>your address?</p>
+    </div>
+    <img class="header-img" src="../assets/images/profile.png">
+</div>
+<div class="user-form">
+    <form id="edit_form_address">
+        <input name="process" value="edit_address" hidden readonly>
+        <div class="flex_v2 edit-box">
+            <select   autocomplete="off" name="region" class="upper edit_ad fnt_clr_2 g2" id="region">
+                <option value="" selected>Select Region</option>
+            </select>
+        </div>
+        <div class="flex_v2 edit-box">
+            <select   autocomplete="off" name="province" class="upper edit_ad fnt_clr_2 g2" id="province">
+                <option value="" selected>Select Province</option>
+            </select>
+        </div>
+        <div class="flex_v2 edit-box">
+            <select   autocomplete="off" name="city_munic" class="upper edit_ad fnt_clr_2 g2" id="city">
+                <option value="" selected>Select City / Municipality</option>
+            </select>
+        </div>
+        <div class="flex_v2 edit-box">
+            <select   autocomplete="off" name="barangay" class="upper edit_ad fnt_clr_2 g2" id="barangay">
+                <option value="" selected>Select Barangay</option>
+            </select>
+        </div>
+        <button id="edit_btn" type="submit" class="hover_shdw full btn_1 fnt_clr_3 bg_9">
+            Save changes
+        </button>
+    </form>
+    <br>
+    <br>
+    <br>
+    <br>
+    <form class="edit_adrr">
+        <div class="flex_v2 edit-box">
+            <label class="fnt_clr_2 tg_ln">
+               Street
+            </label>
+            <div class="spacer_v2"></div>
+            <div class="input-holder_v2">
+                <input name="process" value="edit_street" hidden readonly>
+                <input name="street" class="upper edit" id="edit_street" value="" placeholder="Edit Street">
+            </div>
+            <button data="edit_name" type="submit" class="upper edit_spec btn_1 bg_1 fnt_clr_3 tg_ln_v3 hover_shdw">
+                <i class="fas fa-pen-fancy"></i>
+            </button>
+        </div>
+    </form>
+    <form class="edit_adrr">
+        <div class="flex_v2 edit-box">
+            <label class="fnt_clr_2 tg_ln">
+               Branch / Area
+            </label>
+            <div class="spacer_v2"></div>
+            <div class="input-holder_v2">
+                <input name="process" value="edit_branch" hidden readonly>
+                <input name="branch" class="upper edit" id="edit_area" value="" placeholder="Edit Area / Branch">
+            </div>
+            <button data="edit_name" type="submit" class="edit_spec btn_1 bg_1 fnt_clr_3 tg_ln_v3 hover_shdw">
+                <i class="fas fa-pen-fancy"></i>
+            </button>
+        </div>
+    </form>
+    <form class="edit_adrr">
+        <div class="flex_v2 edit-box">
+            <label class="fnt_clr_2 tg_ln">
+               Coordinates
+            </label>
+            <div class="spacer_v2"></div>
+            <div class="input-holder_v2">
+                <input name="process" value="edit_coords" hidden readonly>
+                <input readonly class="upper edit" name="coords"  id="edit_coords" value="" placeholder="Edit Coordinates">
+                <button type="button" id="location"><i class="loc fas fa-map-marked-alt text-shadow-dark"></i></button>
+            </div>
+            <button data="edit_name" type="submit" class="edit_spec btn_1 bg_1 fnt_clr_3 tg_ln_v3 hover_shdw">
+                <i class="fas fa-pen-fancy"></i>
+            </button>
+        </div>
+    </form>
+</div>
+<div id="map-holder">
+    <button id="close-map" type="button"><i class="fas fa-times"></i></button>
+    <div id="map" ></div>
+</div>
+<script>
+    $(document).ready(function(){
+
+        init();
+
+        function init(){
+            $('.est_name').html(sessionStorage.getItem('est_name') + ' (' + sessionStorage.getItem('est_type') + ')');
+        }
+
+        $.getJSON('address.json', function(data){
+            $.each(data, function(key, value){
+                $('#region').append('<option value="'+key+'">'+value['region_name']+'</option>')
+            })
+        })
+
+        $('input.edit').keydown(function(){
+            $(this).css('color', '#616161');
+        })
+
+        $('#location').click(function(){
+            $('#map').addClass('map-active')
+            $('.leaflet-right').addClass('leaf-active')
+            $('#close-map').addClass('active-close')
+        })
+
+        // close map
+
+        $('#close-map').click(function(){
+            $('#map').removeClass('map-active')
+            $('.leaflet-right').removeClass('leaf-active')
+            $('#close-map').removeClass('active-close')
+        })
+
+        $('#region').change(function(){
+            var region = $(this).val()
+            $(this).css('color', '#616161')
+            $('#province').html('<option value="">'+"Select Province"+'</option>')
+            if(region == ""){
+                
+            }else{
+                $.getJSON('address.json', function(data){
+                    $.each(data[region]['province_list'], function(key, value){
+                        $('#province').append('<option value="'+key+'">'+key+'</option>')
+                    })
+                })  
+            }
+            
+        })
+
+        $('#province').change(function(){
+            $(this).css('color', '#616161')
+            var region = $('#region').val()
+            var province = $(this).val()
+            $('#city').html('<option value="">'+"Select City / Municipality"+'</option>')
+            if(province == ""){
+               
+            }else{
+                $.getJSON('address.json', function(data){
+                    $.each(data[region]['province_list'][province]['municipality_list'], function(key, value){
+                        if(key.indexOf('CITY') >= 0){
+                            $('#city').append('<option value="'+key+'">'+key+'</option>')
+                        }else{
+                            $('#city').append('<option value="'+key+'">'+key+' MUNICIPALITY</option>')
+                        }
+                    })
+                })
+            }
+        })
+
+        $('#city').change(function(){
+            $(this).css('color', '#616161')
+            var region = $('#region').val()
+            var province = $('#province').val()
+            var city = $(this).val()
+            $('#barangay').html('<option value="">'+"Select Barangay"+'</option>')
+            if(city == ""){
+                
+            }else{
+                $.getJSON('address.json', function(data){
+                    $.each(data[region]['province_list'][province]['municipality_list'][city]['barangay_list'], function(key, value){
+                        $('#barangay').append('<option value="'+value+'">'+value+'</option>')
+                    })
+                })
+            }
+        })
+
+        $('#barangay').change(function(){
+            $(this).css('color', '#616161')
+        })
+
+        function setinfo(){
+
+            if(sessionStorage.getItem('city').indexOf('CITY') >= 0){
+                var city = sessionStorage.getItem('city');
+            }else{
+                var city = 'MUNICIPALITY OF ' + sessionStorage.getItem('city');
+            }
+
+            if(sessionStorage.getItem('barangay').indexOf('BARANGAY') >= 0){
+                var barangay = sessionStorage.getItem('barangay')
+            }else{
+                var barangay = 'BARANGAY ' + sessionStorage.getItem('barangay')
+            }
+
+            if(sessionStorage.getItem('street').indexOf('STREET') >= 0){
+                var street = sessionStorage.getItem('street')
+            }else{
+                var street = sessionStorage.getItem('street') + ' STREET';
+            }
+
+            $('#branch').html(
+            sessionStorage.getItem('region') + ', ' +
+            sessionStorage.getItem('province') + ', ' +
+            city + ', ' +
+            barangay + ', ' +
+            street + ', ' +
+            sessionStorage.getItem('branch')
+            );
+        }
+
+        $('#edit_form_address').submit(function(e){
+            e.preventDefault();
+            var array_check = [];
+            var data = $(this).serializeArray();
+            console.log(data)
+            $('.edit_ad').map(function(index, element){
+                if(element.value === ""){
+                    array_check.push(false)
+                }else{
+                    return true;
+                }
+            })
+
+            if(array_check.length <= 0){
+                $('.notif').html('Updating...');
+                $('.edit_spec').addClass('unclickable');
+                $('#edit_btn').removeClass('hover_shdw');
+                $('#edit_btn').addClass('unclickable');
+                $.ajax({
+                    method: 'POST',
+                    data: {
+                        'data' : data, 
+                        'token' : [sessionStorage.getItem('jwt_token'), sessionStorage.getItem('jwt_key')]
+                    },
+                    url: 'http://localhost/cimo_desktop/app/update_profile.php',
+                    dataType: 'JSON',
+                    success: function(data){
+                        console.log(data)
+                        if(data.status === "Success"){
+                            setTimeout(function(){
+                                $('.notif').html('<i class="fnt_clr_6 fas fa-check-circle"></i> ' + data.message + ', anything else?');
+                                $('#edit_btn').addClass('hover_shdw');
+                                $('#edit_btn').removeClass('unclickable');
+                                $('.edit_spec').removeClass('unclickable');
+                                for(i = 0; i <= data.set.length - 1; i++){
+                                    sessionStorage.setItem(data.set[i], data.data[i]);
+                                }
+                                $('#edit_form_address').trigger('reset');
+                                sessionStorage.setItem('jwt_token', data.token)
+                                setinfo();
+                            }, 2000);
+                        }else if(data.status === "Error"){
+                            setTimeout(function(){
+                                $('#edit_btn').addClass('hover_shdw');
+                                $('#edit_btn').removeClass('unclickable');
+                                $('.edit_spec').removeClass('unclickable');
+                                $('.notif').html('<i class="fnt_clr_6 fas fa-times-circle"></i> ' + data.message + ', anything else?');
+                            }, 2000)
+                        }
+                    }
+                });
+            }else{
+                $('.notif').html('<i class="fnt_clr_6 fas fa-times-circle"></i> Sorry, you need to complete the input <br> before submitting');
+            }
+        });
+
+        $('.edit_adrr').submit(function(e){
+            e.preventDefault();
+            var data = $(this).serializeArray();
+            var check = $(this).children().find('.edit').map(function(){
+                if($(this).val() === ""){
+                    return false;
+                    return;
+                }else{
+                    return true;
+                    return;
+                }
+            }); 
+
+            if(check[0] === true){
+                $('#edit_btn').addClass('unclickable');
+                $(this).children().find('.edit').css('color', '#616161');
+                var anim_shadow = $(this).children().find('.edit_spec')
+                .removeClass('hover_shdw').addClass('unclickable')
+                $('.edit_spec').addClass('unclickable')
+                $(this).children().find('.edit').removeClass('error');
+                $('.notif').html('Updating...');
+                console.log(data);
+                $.ajax({
+                    method: 'POST',
+                    data: {
+                        'data' : data, 
+                        'token' : [sessionStorage.getItem('jwt_token'), sessionStorage.getItem('jwt_key')]
+                    },
+                    url : 'http://localhost/cimo_desktop/app/update_profile.php',
+                    dataType: 'JSON',
+                    success: function(data){
+                        console.log(data)
+                        if(data.status === "Success"){
+                            setTimeout(function(){
+                                $('#edit_btn').removeClass('unclickable');
+                                $('.notif').html('<i class="fnt_clr_6 fas fa-check-circle"></i> ' + data.message + ', anything else?');
+                                anim_shadow.addClass('hover_shdw')
+                                .removeClass('unclickable');
+                                $('.edit_spec').removeClass('unclickable')
+                                sessionStorage.setItem(data.set, data.data);
+                                sessionStorage.setItem('jwt_token', data.token)
+                                setinfo();
+                                $('.edit_adrr').trigger('reset');
+                            }, 2000);
+                        }else if(data.status == "Error"){
+                            setTimeout(function(){
+                                $('#edit_btn').removeClass('unclickable');
+                                anim_shadow.addClass('hover_shdw')
+                                .removeClass('unclickable');
+                                $('.edit_spec').removeClass('unclickable')
+                                $('.notif').html('<i class="fnt_clr_6 fas fa-times-circle"></i> ' + data.message + ', please try again.');
+                            }, 2500);
+                        }
+                    }
+                });
+            }else{
+                $(this).children().find('.edit').addClass('error');
+                $(this).children().find('.edit').css('color', 'red');
+            }
+
+        })
+
+        var marker = {}
+        var map = L.map('map').setView([10.639181, 122.977394], 7);
+        L.Control.geocoder({
+            defaultMarkGeocode: false,
+        }).on('markgeocode', function(e){
+            map.removeLayer(marker)
+            marker = L.marker([e.geocode.center.lat, e.geocode.center.lng], 30).addTo(map)
+            .bindPopup('Set this as Establishment\'s Location?'+'<br>'+'<button class="map-btn">Get Location</button>')
+            .openPopup()
+            $('.map-btn').click(function(){
+                button_stats = 1;
+                $('#edit_btn').html('Save changes');
+                $('.map-btn').addClass('bgc-4').html('Saved')
+                $('#edit_coords').val(e.geocode.center.lat +', '+ e.geocode.center.lng).change()
+            })
+            map.fitBounds(e.geocode.bbox)
+        }).addTo(map);
+        map.on("click", function(e){
+            lat = e.latlng.lat;
+            long = e.latlng.lng;
+            if (marker != undefined){
+                map.removeLayer(marker)
+            }
+            marker = L.marker([lat, long]).addTo(map)
+                .bindPopup('Set this as Establishment\'s Location?'+'<br>'+'<button class="map-btn">Get Location</button>')
+                .openPopup()
+                $('.map-btn').click(function(){
+                    button_stats = 1;
+                    $('#edit_btn').html('Save changes');
+                    $('.map-btn').addClass('bg_9').html('Saved')
+                    $('#edit_coords').val(e.latlng.lat +', '+ e.latlng.lng).change()
+                })
+        })
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    })
+</script>

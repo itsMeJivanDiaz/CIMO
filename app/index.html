@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>
+        CIMO Control Panel
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <link href="../assets/icons/fontawesome-free-5.15.3-web/css/all.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="../assets/images/logo.png">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <script src="/eel.js"></script>
+    <div id="display">
+
+    </div>
+    <script src="../assets/libs/jquery.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script>
+        $(window).on('load', function(){
+
+            window.onerror = function(eel_event){
+                if(eel_event == 'Uncaught ReferenceError: eel is not defined'){
+                    window.location.replace("https://hehe.not.found.com");
+                }
+            }
+
+            eel.eel_start();
+
+            resizefnc()
+
+            $(document).on("keydown", disable);
+
+            if(sessionStorage.getItem('sessionID') == '' || sessionStorage.getItem('sessionID') == null){
+                $.get('login.html', function(data){
+                    $('#display').html(data)
+                })
+            }else{
+                $.get('user.html', function(data){
+                    $('#display').html(data)
+                })
+            }
+
+            function resizefnc(){
+                window.resizeTo(1100, 715);
+            }
+            
+            function disable(e) { 
+                if (e.keyCode == 116 || e.keyCode == 123 || e.keyCode == 9 ||
+                    e.ctrlKey && e.shiftKey && e.keyCode == 73 || 
+                    e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode ===65 ))  {
+                    e.preventDefault(); 
+                }
+            }
+        })
+    </script>
+</body>
+</html>

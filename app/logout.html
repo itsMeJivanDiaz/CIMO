@@ -1,0 +1,39 @@
+<div id="logout" class="home_log">
+    <div class="box_us bg_6 center_center o-pad top">
+        <img class="image_logo borderless medium" src="../assets/images/logout_image.png">
+        <p class="wc_ltr_v2 small txt_center bold fnt_clr_1">Do you want to log out</p>
+        <p class="tag tg_ln small">This will terminate all running processes within the system</p>
+        <section class="line bg_7"></section>
+        <div class="btn_box">
+            <button id="yes" class="fnt_clr_3 bg_9 btn_border hover_shdw" >Yes</button>
+        </div>
+    </div>    
+</div>
+<script>
+    $(document).ready(function(){
+
+        $('#yes').click(function(){
+            $.ajax({
+                method: 'POST',
+                data: {
+                    'data' : 'logout',
+                    'token': [sessionStorage.getItem('jwt_token'), sessionStorage.getItem('jwt_key')],
+                },
+                url: 'http://localhost/cimo_desktop/app/logout.php',
+                dataType: 'JSON',
+                success: function(data){
+                    console.log(data)
+                    if(data.status === "Success"){
+                        sessionStorage.clear();
+                        $.get('login.html', function(data){
+                            $('#display').html(data)
+                        })
+                    }else{
+                        alert('Something went wrong');
+                    }
+                }
+            })
+        })
+
+    })
+</script>

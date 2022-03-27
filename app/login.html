@@ -1,0 +1,802 @@
+<div  class="bg_3 load_wrapper">
+    <img class="image_logo" src="../assets/images/logo.png">
+    <h1 class="wc_ltr fnt_clr_4">CIMO</h1>
+    <p id="request_stats" class="txt_center fnt_clr_2 tg_ln_v2">Loading</p>
+    <div class="lds-ellipsis">
+        <div>
+        </div>
+        <div>
+        </div>
+        <div>
+        </div>
+        <div>
+        </div>
+    </div>
+    <button data-from="" data-to="" id="ld_btn" class="btn_1 fnt_clr_3 bg_1 hover_shdw mn_btn">
+        Log in
+    </button>
+</div>
+<button data-value="" class="mn_btn" id="close"><i class="fas fa-times fnt_clr_3"></i></button>
+<div class="wrapper" id="scroll_1">
+    <div class="bg_3 body-container">
+        <section class="content content_bg1">
+            <img class="image_logo" src="../assets/images/logo.png">
+            <h1 class="wc_ltr fnt_clr_1">Hi, welcome to CIMO!</h1>
+            <p class="tg_ln fnt_clr_2">Crowd-counting with Integrative Mobile Application</p>
+            <br>
+            <br>
+            <button data-from="scroll_1" data-to="scroll_2" type="button" class="btn_1 fnt_clr_3 bg_1 hover_shdw mn_btn">
+                <div class="btn_anim bg_4">
+                    Register
+                </div>
+            </button>
+            <br>
+            <button data-from="scroll_1" data-to="scroll_3" type="button" id="lgn" class="btn_1 fnt_clr_3 bg_2 hover_shdw mn_btn">
+                <div class="btn_anim bg_5">
+                    Log in
+                </div> 
+            </button>
+        </section>
+    </div>
+</div>
+<div class="wrapper panel_2" id="scroll_2">
+    <div class="bg_3 body-container active">
+        <section class="content flex o-pad">
+            <div class="reg_box bg brpnt">
+                
+            </div>
+            <div class="reg_box" id="rgstr_from_cont">
+                <div id="form" class="bg_6">
+                    <form id="reg-form-id">
+                        <div class="form_header">
+                            <h1 class="wc_ltr_v2 fnt_clr_6">Establishment Registration Form</h1>
+                        </div>
+                        <div class="form-body">
+                            <section class="form_ ">
+                                <p class="tg_ln fnt_clr_2">- Tell us about your Establishment.</p>
+                                <p class="tg_ln fnt_clr_2 warning">- Missing inputs are required</p>
+                                <br>
+                                <div class="input-holder">
+                                    <section class="icon-box">
+                                        <i class="fas fa-building text-shadow-dark"></i>
+                                    </section> 
+                                    <input id="est_name" required autocomplete="off" name="name" class="fnt_clr_2 g1" placeholder="Establishment Name">
+                                </div>
+                                <div class="input-holder">
+                                    <section class="icon-box">
+                                        <i class="fas fa-vector-square text-shadow-dark"></i>
+                                    </section>
+                                    <input step="any" id="est_area" type="number" required autocomplete="off" name="area" class="g1 fnt_clr_2" placeholder="Area in Square Meters">
+                                </div>
+                                <div class="input-holder">
+                                    <section class="icon-box">
+                                        <i class="fas fa-vector-square text-shadow-dark"></i>
+                                    </section>
+                                    <input id="est_normal_cap" type="number" required autocomplete="off" name="normal_cap" class="g1 fnt_clr_2" placeholder="Normal Capacity">
+                                </div>
+                                <div class="input-holder">
+                                    <section class="icon-box">
+                                        <i class="fas fa-store text-shadow-dark"></i>
+                                    </section>
+                                    <select  required autocomplete="off" name="type" class="fnt_clr_2 g1" id="establishment-type">
+                                        <option value="" selected="selected">Establishment Type</option>
+                                    </select>
+                                </div>
+                            </section>
+                            <section class="form_ dis">
+                                <p class="tg_ln fnt_clr_2">- Where can your Establishment be found?.</p>
+                                <p class="tg_ln fnt_clr_2 warning">- Missing inputs are required</p>
+                                <br>
+                                <div class="input-holder">
+                                    <section class="icon-box">
+                                        <i class="fas fa-globe-asia text-shadow-dark"></i>
+                                    </section>
+                                    <select  required autocomplete="off" name="region" class="upper fnt_clr_2 g2" id="region">
+                                        <option selected>Select Region</option>
+                                    </select>
+                                </div>
+                                <div class="input-holder">
+                                    <section class="icon-box">
+                                        <i class="fas fa-map text-shadow-dark"></i>
+                                    </section>
+                                    <select  required autocomplete="off" name="province" class="upper fnt_clr_2 g2" id="province">
+                                        <option selected>Select Province</option>
+                                    </select>
+                                </div>
+                                <div class="input-holder">
+                                    <section class="icon-box">
+                                        <i class="fas fa-city text-shadow-dark"></i>
+                                    </section>
+                                    <select  required autocomplete="off" name="city_munic" class="upper fnt_clr_2 g2" id="city">
+                                        <option selected>Select City / Municipality</option>
+                                    </select>
+                                </div>
+                                <div class="input-holder">
+                                    <section class="icon-box">
+                                        <i class="fas fa-sign text-shadow-dark"></i>
+                                    </section>
+                                    <select  required autocomplete="off" name="barangay" class="upper fnt_clr_2 g2" id="barangay">
+                                        <option selected>Select Barangay</option>
+                                    </select>
+                                </div>
+                                <div class="input-holder">
+                                    <section class="icon-box">
+                                        <i class="fas fa-road text-shadow-dark"></i>
+                                    </section>
+                                    <input required autocomplete="off" name="street" id="street" class="upper fnt_clr_2 g2" placeholder="Street" >
+                                </div>
+                                <div class="input-holder">
+                                    <section class="icon-box">
+                                        <i class="fas fa-directions text-shadow-dark"></i>
+                                    </section>
+                                    <input required autocomplete="off" name="area_branch" id="area" class="upper fnt_clr_2 g2" placeholder="Area or Branch e.g (SM / Robinson)" >
+                                </div>
+                                <div class="input-holder">
+                                    <section class="icon-box">
+                                        <i class="fas fa-map-marker-alt text-shadow-dark"></i>
+                                    </section>
+                                    <input required autocomplete="off" name="latlong" id="loc-input" class="upper fnt_clr_2 g2" placeholder="Establishment Coordinates">
+                                    <button type="button" id="location"><i class="loc fas fa-map-marked-alt text-shadow-dark"></i></button>
+                                </div>
+                            </section>
+                            <section class="form_ dis">
+                                <p class="tg_ln fnt_clr_2">- Do not let anyone know your Establishment's credentials.</p>
+                                <p class="tg_ln fnt_clr_2 warning">- Spaces are not allowed for username and paswwrod</p>
+                                <br>
+                                <div class="input-holder">
+                                    <section class="icon-box text-shadow-dark">
+                                        <i class="fas fa-at"></i>
+                                    </section>
+                                    <input required autocomplete="off" name="email" id="email" class="fnt_clr_2 creds" placeholder="email">
+                                </div>
+                                <div class="input-holder">
+                                    <section class="icon-box text-shadow-dark">
+                                        <i class="fas fa-user-tag"></i>
+                                    </section>
+                                    <input required autocomplete="off" name="username" id="user" class="fnt_clr_2 creds" placeholder="Usercode">
+                                </div>
+                                <div class="input-holder">
+                                    <section class="icon-box text-shadow-dark">
+                                        <i class="fas fa-lock"></i>
+                                    </section>
+                                    <input value="" required type="password" autocomplete="off" name="password" id="pass" class="creds fnt_clr_2" placeholder="Passcode (minimum 12 characters)">
+                                    <button type="button" class="see"><i class="loc fas fa-eye text-shadow-dark"></i></button>
+                                </div>
+                                <div class="input-holder">
+                                    <section class="icon-box text-shadow-dark">
+                                        <i class="fas fa-lock"></i>
+                                    </section>
+                                    <input value="" required type="password" autocomplete="off" name="password_confirm" id="pass_con" class="fnt_clr_2" placeholder="Confirm Passcode">
+                                    <button type="button" class="see"><i class="loc fas fa-eye text-shadow-dark"></i></button>
+                                </div>
+                            </section>
+                            <div class="flex_v2 float right">
+                                <button data-op="-" type="button" class="btn_1 fnt_clr_3 bg_9 reg_btn_nav">
+                                    Back
+                                </button>
+                                <button data-op="+" type="button" class="btn_1 fnt_clr_3 bg_9 reg_btn_nav">
+                                    Next
+                                </button>
+                                <button id="reg_btn" type="submit" class="btn_1 fnt_clr_3 bg_9 dis">
+                                    Proceed
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="wrapper panel_2" id="scroll_3">
+    <div class="bg_3 body-container active">
+        <section class="content content_bg2 center">
+            <div id="form" class="bg_6 f2">
+                <form id="log-in-form">
+                    <div class="form_header">
+                        <h1 class="wc_ltr_v2 fnt_clr_6">Log in Form</h1>
+                    </div>
+                    <div class="form-body">
+                        <div class="input-holder">
+                            <section class="icon-box text-shadow-dark">
+                                <i class="fas fa-user-tag"></i>
+                            </section>
+                            <input value="ljor1234567" required autocomplete="off" name="user-login" class="log_creds font-3" placeholder="Usercode">
+                        </div>
+                        <div class="input-holder">
+                            <section class="icon-box text-shadow-dark">
+                                <i class="fas fa-lock"></i>
+                            </section>
+                            <input value="ljor123456789" required type="password" autocomplete="off" name="pass-login" class="log_creds font-3" placeholder="Passcode">
+                            <button type="button" class="see"><i class="loc fas fa-eye text-shadow-dark"></i></button>
+                        </div>
+                        <button id="Log_btn" type="submit" class="btn_1 fnt_clr_3 bg_9">
+                            Proceed
+                        </button>
+                        <p data-from="scroll_3" data-to="scroll_4" class="tg_ln fnt_clr_2 forgot mn_btn" id="reset">Forgot Password</p>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="wrapper panel_2" id="scroll_4">
+    <div class="bg_3 body-container active">
+        <section class="content content_bg2 center">
+            <div id="form" class="bg_6 f3">
+                <div class="form_header">
+                    <h1 class="wc_ltr_v2 fnt_clr_6">Forgot Password</h1>
+                </div>
+                <p class="tg_ln fnt_clr_2 forgot" id="reset">Send Verification Code to your email address.</p>
+                <br>
+                <div class="form-body">
+                    <form id="send">
+                        <div class="input-holder">
+                            <section class="icon-box text-shadow-dark">
+                                <i class="fas fa-at"></i>
+                                </section>
+                            <input id="email_input" value="jivangdiazchmsc3b@gmail.com" required autocomplete="off" name="email-send" class="log_creds font-3" placeholder="Enter email">
+                        </div>
+                        <button id="send_email" type="submit" class="btn_1 fnt_clr_3 bg_9 bt">
+                                Send to Email
+                        </button>
+                    </form>
+                    <form id="forgot-pass">
+                        <div class="input-holder">
+                            <section class="icon-box text-shadow-dark">
+                                <i class="fas fa-shield-alt"></i>
+                            </section>
+                            <input value="" required autocomplete="off" name="verification" class="log_creds font-3" placeholder="Email verification">
+                        </div>
+                        <div class="input-holder">
+                            <section class="icon-box text-shadow-dark">
+                                <i class="fas fa-lock"></i>
+                            </section>
+                            <input id="newpass" value="" required type="password" autocomplete="off" name="new-pass-login" class="log_creds font-3" placeholder="New passcode">
+                            <button type="button" class="see"><i class="loc fas fa-eye text-shadow-dark"></i></button>
+                        </div>
+                         <div class="input-holder">
+                            <section class="icon-box text-shadow-dark">
+                                <i class="fas fa-redo-alt"></i>
+                            </section>
+                            <input id="reapass" value="" required type="password" autocomplete="off" name="repeat-new-pass-login" class="log_creds font-3" placeholder="Repeat passcode">
+                            <button type="button" class="see"><i class="loc fas fa-eye text-shadow-dark"></i></button>
+                        </div>
+                        <button id="for_btn" type="submit" class="btn_1 fnt_clr_3 bg_9">
+                            Proceed
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div id="map-holder">
+    <button id="close-map" type="button"><i class="fas fa-times"></i></button>
+    <div id="map" ></div>
+</div>
+<script>
+    $(document).ready(function(){
+        
+        // reset password
+
+        $('#forgot-pass').submit(function(e){
+            e.preventDefault();
+            var data = $(this).serialize();
+            console.log(data);
+            if($('#newpass').val().length <= 12){
+                $('.load_wrapper').removeClass('deac');
+                $('#request_stats').html('Configuring');
+                setTimeout(function(){
+                    $('#ld_btn').attr('data-from', 'scroll_4')
+                    $('#ld_btn').attr('data-to', 'scroll_4')
+                    $('#ld_btn').html('Back');
+                    request('Password does not meet minimum requirement <br> of 12 characters &nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i>')
+                }, 2000)
+            }else if($('#newpass').val() != $('#reapass').val()){
+                $('.load_wrapper').removeClass('deac');
+                $('#request_stats').html('Configuring');
+                setTimeout(function(){
+                    $('#ld_btn').attr('data-from', 'scroll_4')
+                    $('#ld_btn').attr('data-to', 'scroll_4')
+                    $('#ld_btn').html('Back');
+                    request('Password does not match &nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i>')
+                }, 2000)
+            }else{
+                $('.load_wrapper').removeClass('deac');
+                $('#request_stats').html('Configuring');
+                $.ajax({
+                    method: 'POST',
+                    data: data,
+                    dataType: 'JSON',
+                    url: 'http://localhost/cimo_desktop/app/forgot_pass.php',
+                    success: function(resp){
+                        if(resp.status == 'Success'){
+                            setTimeout(function(){
+                                $('#ld_btn').attr('data-from', 'scroll_3')
+                                $('#ld_btn').attr('data-to', 'scroll_3')
+                                request(resp.message + '! &nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>')
+                                $('#ld_btn').html('Log In');
+                            }, 2000)
+                        }else{
+                            setTimeout(function(){
+                                $('#ld_btn').attr('data-from', 'scroll_4')
+                                $('#ld_btn').attr('data-to', 'scroll_4')
+                                $('#ld_btn').html('Back');
+                                request(resp.message + '&nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i>')
+                            }, 2000)
+                        }
+                    }
+                })
+            }
+        })
+
+        $('#send').submit(function(e){
+            e.preventDefault()
+            if($('#email_inpit') != ''){
+                var data = $(this).serialize();
+                $('#send_email').html('Please wait');
+                $.ajax({
+                    method: 'POST',
+                    data: data,
+                    url: 'http://localhost/cimo_desktop/app/check_email.php',
+                    dataType: 'JSON',
+                    success: function(resp){
+                        $('#send_email').html(resp.message);
+                        setTimeout(function(){
+                            $('#send_email').html('Send to Email');
+                        }, 2000)
+                    }
+                })
+            }
+        })
+
+        // utils
+
+        $('.see').click(function(){
+            var status = $(this).prev().attr('type')
+            if(status == 'password'){
+                $(this).prev().attr('type', 'text')
+                $(this).children().removeClass('fa-eye')
+                $(this).children().addClass('fa-eye-slash')
+            }else{
+                $(this).prev().attr('type', 'password')
+                $(this).children().addClass('fa-eye')   
+                $(this).children().removeClass('fa-eye-slash')
+            }
+        })
+
+        // populate Address dropdowns
+
+        reg_array = []
+        
+        $.getJSON('address.json', function(data){
+            $.each(data, function(key, value){
+                $('#region').append('<option value="'+key+'">'+value['region_name']+'</option>')
+            })
+        })
+
+        $('#region').change(function(){
+            var region = $(this).val()
+            $(this).css('color', '#616161')
+            $('#province').html('<option value="">'+"Select Province"+'</option>')
+            if(region == ""){
+                
+            }else{
+                $.getJSON('address.json', function(data){
+                    $.each(data[region]['province_list'], function(key, value){
+                        $('#province').append('<option value="'+key+'">'+key+'</option>')
+                    })
+                })  
+            }
+            
+        })
+
+        $('#province').change(function(){
+            $(this).css('color', '#616161')
+            var region = $('#region').val()
+            var province = $(this).val()
+            $('#city').html('<option value="">'+"Select City / Municipality"+'</option>')
+            if(province == ""){
+               
+            }else{
+                $.getJSON('address.json', function(data){
+                    $.each(data[region]['province_list'][province]['municipality_list'], function(key, value){
+                        if(key.indexOf('CITY') > 0){
+                            $('#city').append('<option value="'+key+'">'+key+'</option>')
+                        }else{
+                            $('#city').append('<option value="'+key+'">'+key+' MUNICIPALITY</option>')
+                        }
+                    })
+                })
+            }
+        })
+
+        $('#city').change(function(){
+            $(this).css('color', '#616161')
+            var region = $('#region').val()
+            var province = $('#province').val()
+            var city = $(this).val()
+            $('#barangay').html('<option value="">'+"Select Barangay"+'</option>')
+            if(city == ""){
+                
+            }else{
+                $.getJSON('address.json', function(data){
+                    $.each(data[region]['province_list'][province]['municipality_list'][city]['barangay_list'], function(key, value){
+                        $('#barangay').append('<option value="'+value+'">'+value+'</option>')
+                    })
+                })
+            }
+        })
+
+        $('#barangay').change(function(){
+            $(this).css('color', '#616161')
+        })
+
+        // fethc IATF guidelines
+
+        $.getJSON('iatf_guide.json', function(data){
+            $.each(data, function(key, value){ 
+                $('#establishment-type').append('<option value="'+key+'">'+key+'</option>')
+            })
+        })
+        
+        $('#establishment-type').change(function(){
+            $(this).css('color', '#616161')
+        })
+
+        // reg navitagion
+
+        var eq = 0
+
+        $('.reg_btn_nav').eq(0).css({
+            'opacity' : '0',
+            'pointer-events' : 'none'
+        })
+
+        $('.reg_btn_nav').click(function(){
+
+            var op = $(this).attr('data-op')
+
+            op == "+" ? eq+=1 : eq-=1
+            console.log(eq)
+            if(eq == 0){
+
+                $('.reg_btn_nav').eq(0).css({
+                    'opacity' : '0',
+                    'pointer-events' : 'none'
+                })
+           
+            }else if(eq == 1){
+                array_val = []
+                value = document.querySelectorAll('.g1')
+                var check = input_checker(value)
+                console.log(check[0])
+                if(check[0] == true){
+                    if(check[1] == 2){
+                        $('#establishment-type').css('color', 'red')
+                    }else{
+                        $('.g1').eq(check[1]).addClass('error')
+                    }
+                    $('.warning').eq(eq - 1).addClass('enable')
+                    eq = 0
+                }else{
+                    $('.warning').eq(eq - 1).removeClass('enable')
+                    $('.reg_btn_nav').eq(0).css({
+                        'opacity' : '1',
+                        'pointer-events' : 'auto'
+                    })
+                    baxt()
+                }
+            }
+            if(eq == 2){
+                array_val = []
+                value = document.querySelectorAll('.g2')
+                var check = input_checker(value)
+                if(check[0] == true){
+                    if(check[1] <= 3){
+                        $('.g2').eq(check[1]).css('color', 'red')
+                    }else{
+                        $('.g2').eq(check[1]).addClass('error')
+                    }
+                    $('.warning').eq(eq - 1).addClass('enable')
+                    eq = 1
+                }else{
+                    $('.warning').eq(eq - 1).removeClass('enable')
+                    $('#reg_btn').removeClass('dis')
+                    $('.reg_btn_nav').eq(1).css({
+                        'display' : 'none',
+                    })
+                    baxt()
+                }
+            }else{
+                $('#reg_btn').addClass('dis')
+                $('.reg_btn_nav').eq(1).css({
+                    'display' : 'block',
+                })
+            }
+            baxt()
+        })
+
+        function input_checker(array){
+            array.forEach((element, index, node) => {
+                if(element.value == ""){
+                    array_val.push(false)
+                }else{
+                    array_val.push(true)
+                }
+            });
+            var check = array_val.includes(false)
+            var index = array_val.indexOf(false)
+            return [check, index]
+        }
+
+        function baxt(){
+            $('.form_').addClass('dis')
+            $('.form_').eq(eq).removeClass('dis')
+        }
+
+        // map on
+
+        $('#location').click(function(){
+            $('#map').addClass('map-active')
+            $('.leaflet-right').addClass('leaf-active')
+            $('#close-map').addClass('active-close')
+        })
+
+        // close map
+
+        $('#close-map').click(function(){
+            $('#map').removeClass('map-active')
+            $('.leaflet-right').removeClass('leaf-active')
+            $('#close-map').removeClass('active-close')
+        })
+
+        // register animation event
+
+        $('.mn_btn').click(function(){
+            eq = 0
+            baxt()
+            $('.reg_btn_nav').eq(0).css({
+                'opacity' : '0',
+                'pointer-events' : 'none'
+            })
+            $('#reg_btn').addClass('dis')
+                $('.reg_btn_nav').eq(1).css({
+                'display' : 'block',
+            })
+            var to = $(this).attr('data-to');
+            var from = $(this).attr('data-from');
+            $('.load_wrapper').addClass('deac');
+            $('.lds-ellipsis').removeClass('deac')
+            $('.lds-ellipsis div').removeClass('deac')
+            $('#ld_btn').removeClass('active')
+            if(to == null || from == null){
+                var from = $(this).attr('data-value')
+                $('#scroll_1').find('.body-container').addClass('active');
+                $('#'  + from).find('.body-container').addClass('active');
+                setTimeout(function(){
+                    document.getElementById('scroll_1').scrollIntoView();
+                    $('#close').removeClass('active-cls');
+                },700)
+                setTimeout(() => {
+                    $('#scroll_1').find('.body-container').removeClass('active');
+                }, 1500);
+                document.getElementById('reg-form-id').reset();
+                document.getElementById('log-in-form').reset();
+            }else{
+                $('#close').attr('data-value', to);
+                $('#'  + from).find('.body-container').addClass('active');
+                setTimeout(function(){
+                    document.getElementById(to).scrollIntoView();
+                },700)
+                setTimeout(() => {
+                    $('#'  + from).find('.body-container').removeClass('active');
+                    $('#'  + to).find('.body-container').removeClass('active');
+                    $('#close').addClass('active-cls');
+                }, 1500);
+            }
+        });
+        
+        // functions
+
+        setTimeout(function(){
+            $('.load_wrapper').addClass('deac');
+            setTimeout(function(){
+                $('#ld_btn').addClass('doneload')
+            }, 2000)
+        }, 3000);   
+
+        // map
+
+        $('#loc-input').click(function(){
+            $('#location').click()
+        })
+
+        var marker = {}
+        var map = L.map('map').setView([10.639181, 122.977394], 7);
+        L.Control.geocoder({
+            defaultMarkGeocode: false,
+        }).on('markgeocode', function(e){
+            map.removeLayer(marker)
+            marker = L.marker([e.geocode.center.lat, e.geocode.center.lng], 30).addTo(map)
+            .bindPopup('Set this as Establishment\'s Location?'+'<br>'+'<button class="map-btn">Get Location</button>')
+            .openPopup()
+            $('.map-btn').click(function(){
+                $('.map-btn').addClass('bgc-4').html('Saved')
+                $('#loc-input').val(e.geocode.center.lat +', '+ e.geocode.center.lng)
+            })
+            map.fitBounds(e.geocode.bbox)
+        }).addTo(map);
+        map.on("click", function(e){
+            lat = e.latlng.lat;
+            long = e.latlng.lng;
+            if (marker != undefined){
+                map.removeLayer(marker)
+            }
+            marker = L.marker([lat, long]).addTo(map)
+                .bindPopup('Set this as Establishment\'s Location?'+'<br>'+'<button class="map-btn">Get Location</button>')
+                .openPopup()
+                $('.map-btn').click(function(){
+                    $('.map-btn').addClass('bg_9').html('Saved')
+                    $('#loc-input').val(e.latlng.lat +', '+ e.latlng.lng)
+                })
+        })
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // registration
+
+        function request(message){
+            $('#request_stats').html(message);
+            $('.lds-ellipsis').addClass('deac')
+            $('.lds-ellipsis div').addClass('deac')
+            $('#ld_btn').addClass('active')
+        }
+
+        // prevent spaces
+        $('.creds').keydown(function(e){
+            if(e.which == 32){
+                $('.warning').eq(2).addClass('enable')
+                return false;
+            }
+        })
+
+        $('.log_creds').keydown(function(e){
+            if(e.which == 32){
+                return false;
+            }
+        })
+
+        $('#reg-form-id').submit(function(e){
+            e.preventDefault()
+            $('.load_wrapper').removeClass('deac');
+            $('#request_stats').html('Creating your account');
+            if($('#pass_con').val() != $('#pass').val()){
+                setTimeout(function(){
+                    $('#ld_btn').attr('data-from', 'scroll_2')
+                    $('#ld_btn').attr('data-to', 'scroll_2')
+                    $('#ld_btn').html('Back');
+                    request('Password does not match &nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i>')
+                }, 3000)
+            }else if($('#pass').val().length < 12){
+                setTimeout(function(){
+                    $('#ld_btn').attr('data-from', 'scroll_2')
+                    $('#ld_btn').attr('data-to', 'scroll_2')
+                    $('#ld_btn').html('Back');
+                    request('Password does not meet minimum requirement <br> of 12 characters &nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i>')
+                }, 3000)
+            }else{
+                var data = $(this).serialize()
+                console.log(data)
+                $.ajax({
+                    method: 'POST',
+                    data: data,
+                    url: 'http://localhost/cimo_desktop/app/establishment_reg.php',
+                    dataType: 'JSON',
+                    success: function(resp){
+                        console.log(resp)
+                        if(resp == 'Registration Success'){
+                            setTimeout(function(){
+                                $('#ld_btn').attr('data-from', 'scroll_2')
+                                $('#ld_btn').attr('data-to', 'scroll_3')
+                                request('Account creation success! &nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>')
+                                $('#ld_btn').html('Log In');
+                            }, 3000)
+                        }else if(resp == 'Someone already used this username :x'){
+                            setTimeout(function(){
+                                $('#ld_btn').attr('data-from', 'scroll_2')
+                                $('#ld_btn').attr('data-to', 'scroll_2')
+                                $('#ld_btn').html('Back');
+                                request(resp + '&nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i>')
+                            }, 3000)
+                        }else{
+                            setTimeout(function(){
+                                $('#ld_btn').attr('data-from', 'scroll_2')
+                                $('#ld_btn').attr('data-to', 'scroll_2')
+                                $('#ld_btn').html('Back');
+                                request(resp + '&nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i>')
+                            }, 3000)
+                        }
+                    }
+                })
+            }
+        });
+
+        // log in
+
+        function set_initial(){
+            return $.ajax({
+                method: 'POST',
+                data: {
+                    'data' : ['region', 'province', 
+                    'city', 'barangay', 'street', 'branch', 
+                    'normal_cap', 'limited_cap', 'est_logo', 
+                    'est_name', 'est_type', 'latitude', 'longitude', ],
+                    'token': [sessionStorage.getItem('jwt_token'), sessionStorage.getItem('jwt_key')],
+                },
+                url: 'http://localhost/cimo_desktop/app/decoder.php',
+                success: function(data){
+                    data = JSON.parse(data);
+                    sessionStorage.setItem('region', data[0]);
+                    sessionStorage.setItem('province', data[1]);
+                    sessionStorage.setItem('city', data[2]);
+                    sessionStorage.setItem('barangay', data[3]);
+                    sessionStorage.setItem('street', data[4]);
+                    sessionStorage.setItem('branch', data[5]);
+                    sessionStorage.setItem('normal_cap', data[6]);
+                    sessionStorage.setItem('limited_cap', data[7]);
+                    sessionStorage.setItem('est_logo', data[8]);
+                    sessionStorage.setItem('est_name', data[9]);
+                    sessionStorage.setItem('est_type', data[10]);
+                    sessionStorage.setItem('est_lat', data[11]);
+                    sessionStorage.setItem('est_long', data[12]);
+                    eel.update_token(sessionStorage.getItem('jwt_token'), sessionStorage.getItem('jwt_key'));
+                }
+            });
+        }
+        
+        function redir(){
+            setTimeout(function(){
+                $.get('home.html', function(data){
+                    $('#display').html(data)
+                })
+            }, 2000)
+        }
+
+        $('#log-in-form').submit(function(e){
+            e.preventDefault();
+            $('.load_wrapper').removeClass('deac');
+            $('#request_stats').html('Accessing your account');
+            var data = $(this).serialize();
+            $.ajax({
+                method: 'POST',
+                data: data,
+                url: 'http://localhost/cimo_desktop/app/login.php',
+                dataType: 'JSON',
+                success: function(resp){
+                    if(resp.status == 'Log-in Success'){
+                        setTimeout(function(){
+                            $('#request_stats').html('Redirecting...');
+                            sessionStorage.setItem('jwt_token', resp.token);
+                            sessionStorage.setItem('jwt_key', resp.key);
+                            sessionStorage.setItem('window_status', 0);
+                            $('#Login-page').addClass('deac');
+                            set_initial().then(() => {
+                                redir();
+                            })
+                        }, 3000)
+                    }else{
+                        setTimeout(function(){
+                            $('#ld_btn').attr('data-from', 'scroll_3')
+                            $('#ld_btn').attr('data-to', 'scroll_3')
+                            $('#ld_btn').html('Back');
+                            request(resp.status + '&nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i>')
+                        }, 3000)
+                    }
+                }
+            })
+        })
+    })
+</script>

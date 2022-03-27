@@ -1,0 +1,47 @@
+<div id="extended" class="home_log">
+    <div class="box_us bg_6 center_center o-pad top">
+        <img class="image_logo borderless medium" src="../assets/images/display.png">
+        <p class="wc_ltr_v2 small txt_center bold fnt_clr_1">Do you want to enable extended display?</p>
+        <p class="tag tg_ln small">Allows you to inform customers about <br> the current count of your establishment</p>
+        <section class="line bg_7"></section>
+        <div class="btn_box">
+            <button id="yes_e" class="fnt_clr_3 bg_9 btn_border hover_shdw" >Enable</button>
+        </div>
+    </div>    
+</div>
+<script>
+    $(document).ready(function(){
+
+        $('#yes_e').click(function(){
+
+            $(this).removeClass('hover_shdw');
+            $(this).addClass('unclickable');
+            $(this).html('Enabling &nbsp;&nbsp;<i class="fas fa-cog"></i>')
+            if(sessionStorage.getItem('window_status') == 0){
+                sessionStorage.setItem('window_status', 1);
+                setTimeout(() => {
+                    $(this).addClass('hover_shdw');
+                    $(this).removeClass('unclickable');
+                    $(this).html('Enable');
+                    eel.start_extended();
+                }, 1000);
+            }else{
+                setTimeout(() => {
+                    $(this).removeClass('hover_shdw');
+                    $(this).addClass('unclickable');
+                    $(this).html('Still Enabled')
+                }, 1500);
+                setTimeout(() => {
+                    $(this).addClass('hover_shdw');
+                    $(this).removeClass('unclickable');
+                    $(this).html('Enable')
+                }, 3000);
+            }
+        })
+
+        eel.expose(update_status);
+        function update_status(status){
+            sessionStorage.setItem('window_status', status);
+        }
+    })
+</script>

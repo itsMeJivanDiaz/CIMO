@@ -1,0 +1,150 @@
+<div id="user-page" class="wrapper flex bg_3 min">
+    <div id="sidebar" class="bg_6">
+        <div class="sidebar-header">
+            <img class="image_logo_v2" src="../assets/images/logo.png">
+        </div>
+        <ul>
+            <li>
+                <a class="act" href="home.html"><i class="i fas fa-home"></i></a>
+            </li>
+            <li>
+                <a class="act active" href="profile.html"><i class="active i fas fa-user"></i></a>
+            </li>  
+            <li>
+                <a class="act" href="location.html"><i class="i fas fa-map-marked-alt"></i></a>
+            </li>   
+            <li>
+                <a class="act" href="credentials.html"><i class=" i fas fa-lock"></i></a>
+            </li>
+        </ul>
+    </div>
+    <div id="sidebar-cotent" class="bg_6 flex">
+        <div id="main-content">
+            
+        </div>
+        <div id="sub-content">
+            <div class="sub-header">
+                <img id="image_logo" class="user_logo" src="../assets/images/logo.png">
+                <br>
+                <br>
+                <p class="tg_ln fnt_clr_1"><i class="fnt_clr_6 fas fa-map-marker-alt"></i> &nbsp;<span id="branch" class="capitalize"></span></p>
+                <p id="city" class="tg_ln fnt_clr_1"></p>
+            </div>
+            <div class="sub-body">
+                <div class="box bg_11 fnt_clr_1">
+                    <p class="box_fnt">Normal Capacity</p>
+                    <p id="normal_cap" class="wc_ltr_v2 fnt_clr_6"></p>
+                </div>
+                <div class="box bg_10 fnt_clr_1">
+                    <p class="box_fnt">Allowable (W)</p>
+                    <p id="limited_w" class="wc_ltr_v2 fnt_clr_6"></p>
+                </div>
+                <div class="box bg_3 fnt_clr_1">
+                    <p class="box_fnt">Allowable (%)</p>
+                    <p id="limited_p" class="wc_ltr_v2 fnt_clr_6"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+
+        init().then(()=>{
+            setval();
+        });
+
+        function init(){
+            return $.ajax({
+                method: 'POST',
+                data: {
+                    'data' : ['region', 'province', 
+                    'city', 'barangay', 'street', 'branch', 
+                    'normal_cap', 'limited_cap', 'est_logo', 
+                    'est_name', 'est_type', 'latitude', 'longitude'],
+                    'token': [sessionStorage.getItem('jwt_token'), sessionStorage.getItem('jwt_key')],
+                },
+                url: 'http://localhost/cimo_desktop/app/decoder.php',
+                success: function(data){
+                    data = JSON.parse(data);
+                    sessionStorage.setItem('region', data[0]);
+                    sessionStorage.setItem('province', data[1]);
+                    sessionStorage.setItem('city', data[2]);
+                    sessionStorage.setItem('barangay', data[3]);
+                    sessionStorage.setItem('street', data[4]);
+                    sessionStorage.setItem('branch', data[5]);
+                    sessionStorage.setItem('normal_cap', data[6]);
+                    sessionStorage.setItem('limited_cap', data[7]);
+                    sessionStorage.setItem('est_logo', data[8]);
+                    sessionStorage.setItem('est_name', data[9]);
+                    sessionStorage.setItem('est_type', data[10]);
+                    sessionStorage.setItem('est_lat', data[11]);
+                    sessionStorage.setItem('est_long', data[12]);
+                }
+            });
+        }
+
+        function setval(){
+            if(sessionStorage.getItem('city').indexOf('CITY') >= 0){
+                var city = sessionStorage.getItem('city');
+            }else{
+                var city = 'MUNICIPALITY OF ' + sessionStorage.getItem('city');
+            }
+
+            if(sessionStorage.getItem('barangay').indexOf('BARANGAY') >= 0){
+                var barangay = sessionStorage.getItem('barangay')
+            }else{
+                var barangay = 'BARANGAY ' + sessionStorage.getItem('barangay')
+            }
+
+            if(sessionStorage.getItem('street').indexOf('STREET') >= 0){
+                var street = sessionStorage.getItem('street')
+            }else{
+                var street = sessionStorage.getItem('street') + ' STREET';
+            }
+
+            $('#branch').html(
+            sessionStorage.getItem('region') + ', ' +
+            sessionStorage.getItem('province') + ', ' +
+            city + ', ' +
+            barangay + ', ' +
+            street + ', ' +
+            sessionStorage.getItem('branch')
+            );
+            $('#normal_cap').html(sessionStorage.getItem('normal_cap'));
+            $('#limited_w').html(Math.round(sessionStorage.getItem('limited_cap')));
+            $('#limited_p').html((sessionStorage.getItem('limited_cap') / sessionStorage.getItem('normal_cap')) * 100 + '%');
+
+            if(sessionStorage.getItem('est_logo') == 'none'){
+                $('#image_logo').attr('src', '../assets/images/logo.png');
+            }else{
+                $('#image_logo').attr('src', '../uploads/' + sessionStorage.getItem('est_logo'));
+            }
+        }
+
+        var url = 'profile.html';
+
+        get(url);
+
+        $('.act').click(function(e) {
+            e.preventDefault();
+            get($(this).attr('href'))
+            $('.act').removeClass('active')
+            $('.act').children('i').removeClass('active')
+            $(this).children('i').addClass('active')
+            $(this).addClass('active')
+        })
+
+        function get(url){
+            if(url == 'home.html'){
+                $.get(url, function(data){
+                    $('#display').html(data);
+                });
+            }else{
+                $.get(url, function(data){
+                    $('#main-content').html(data);
+                });
+            }
+        }
+    })
+</script>

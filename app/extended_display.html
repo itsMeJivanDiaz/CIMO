@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIMO Extended Display</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/png" href="../assets/images/logo.png">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <script src="/eel.js"></script>
+    <script src="../assets/libs/dom-to-image.js"></script>
+    <script src="../assets/libs/jquery.js"></script>
+    <script src="../assets/libs/html2canvas.js"></script>
+    <script src="../assets/libs/chart.js"></script>
+    <div class="wrapper min min-width bg_6" id="capture">
+        <div class="body-container o-pad">
+            <section class="disp_box bg_6 o-pad flex">
+                <div class="bbox flex_column al_cntr flex start bg_12 o-pad hover_shdw">
+                    <h5 class="wc_ltr_v2 fnt_clr_2 small txt_center regular"><i class="fas fa-users  fnt_clr_6"></i> &nbsp;Allowable Capacity</h5>
+                    <p class="wc_ltr_v2 small fnt_clr_2 ">(Normal)</p>
+                    <br>
+                    <span class="wc_ltr ml fnt_clr_2 regular" id="normal">...</span>
+                </div>
+                <div class="bbox flex_column al_cntr flex start bg_11 o-pad hover_shdw">
+                    <h5 class="wc_ltr_v2 fnt_clr_2 small txt_center regular"><i class="fas fa-people-arrows  fnt_clr_6"></i> &nbsp;Allowable Capacity</h5>
+                    <p class="wc_ltr_v2 small fnt_clr_2 ">(New Normal)</p>
+                    <br>
+                    <span class="wc_ltr ml fnt_clr_2 regular" id="limit">...</span>
+                </div>
+                <div class="bbox flex_column al_cntr flex start bg_10 o-pad hover_shdw">
+                    <h5 class="wc_ltr_v2 fnt_clr_2 small txt_center regular"><i class="fas fa-user-plus  fnt_clr_6"></i> &nbsp;Total</h5>
+                    <br>
+                    <br>
+                    <span class="wc_ltr ml fnt_clr_2 regular" id="total">...</span>
+                </div>
+                <div class="bbox flex_column al_cntr flex start bg_3 o-pad hover_shdw">
+                    <h5 class="wc_ltr_v2 fnt_clr_2 small txt_center regular"><i class="fas fa-user-check  fnt_clr_6"></i> &nbsp;Available</h5>
+                    <br>
+                    <br>
+                    <span class="wc_ltr ml fnt_clr_2" id="available">...</span>
+                </div>
+            </section>
+            <section class="bbox flex full">
+                <section class="disp_box full_height graph">
+                    <div id="" style="height: 40vh; width: 45vw;">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </section>
+                <span class="line vert bg_0"></span>
+                <section class="disp_box full_height">
+                    <div class="bbox flex_column al_cntr flex start full">
+                        <br>
+                        <br>
+                        <br>
+                        <h5 class="wc_ltr fnt_clr_2 medium txt_center regular"><i class="fas fa-question fnt_clr_6 "></i> &nbsp;Status</h5>
+                        <br>
+                        <span class="wc_ltr icon fnt_clr_0 text-shadow-dark" id="stats"><i class="fas fa-check-circle"></i></span>
+                        <br>
+                        <p class="wc_ltr medium fnt_clr_2 regular" id="stats_def">Venue can still accommodate</p>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script>
+        $(window).on('load', function(){
+
+            eel.expose(capture)
+            function capture(est_id, video_name){
+                var node = document.getElementById('capture');
+                domtoimage.toPng(node).then(dataUrl => {
+                    var img = new Image();
+                    img.src = dataUrl;
+                    $.ajax({
+                        method: 'POST',
+                        url: 'http://localhost/cimo_desktop/app/log.php',
+                        data: {
+                            'data' : true,
+                            'est_id' : est_id,
+                            'vid_name': video_name,
+                            'base_64': img.src
+                        },
+                        dataType: 'JSON',
+                        success: function(response){
+                            console.log(response)
+                        }
+                    })
+                })
+            }
+
+            var data_value = [0];
+            var data_hour = ['00:00'];
+            
+            var ctx = document.getElementById('myChart');
+
+            var checker_array = []
+            
+            var node = document.getElementById('capture');
+
+            eel.expose(get_data_num)
+            function get_data_num(count, status, est_id, video_name, acc_id){
+
+                $('#total').html(sessionStorage.getItem('limit') - count);
+                if(count < 0){
+                    $('#available').html('0')
+                }else{
+                    $('#available').html(count)
+                }
+                
+
+                checker_array.push(sessionStorage.getItem('limit') - count);
+                
+                data_value.push(sessionStorage.getItem('limit') - count);
+                data_hour.push(getTime());
+
+                if(status == 'full'){
+                    colors.push('rgba(255, 165, 0, 1)')
+                    $('#stats').removeClass('fnt_clr_0 fnt_clr_8').addClass('fnt_clr_6');
+                    $('#stats').html('<i class="fas fa-exclamation-triangle"></i>')
+                    $('#stats_def').html('Venue at full capacity');
+                    myChart.update('active')
+                }else if(status == 'violation'){
+                    colors.push('rgba(255, 0, 0, 1)')
+                    $('#stats').removeClass('fnt_clr_0 fnt_clr_6').addClass('fnt_clr_8');
+                    $('#stats').html('<i class="fas fa-times-circle"></i>');
+                    $('#stats_def').html('Protocol Violation')
+                    myChart.update('active')
+                    setTimeout(()=>{
+                        domtoimage.toPng(node).then(dataUrl => {
+                        var img = new Image();
+                        img.src = dataUrl;
+                        $.ajax({
+                            method: 'POST',
+                            url: 'http://localhost/cimo_desktop/app/violation.php',
+                            data: {
+                                'data' : true,
+                                'est_id' : est_id,
+                                'vid_name': video_name,
+                                'base_64': img.src,
+                                'acc_id' : acc_id,
+                            },
+                            dataType: 'JSON',
+                            success: function(response){
+                                console.log(response);
+                            }
+                        });
+                    });
+                }, 500);
+                }else if(status == 'normal'){
+                    colors.push('rgb(42, 187, 155)');
+                    $('#stats').removeClass('fnt_clr_8 fnt_clr_6').addClass('fnt_clr_0');
+                    $('#stats').html('<i class="fas fa-check-circle"></i>');
+                    $('#stats_def').html('Venue can still accommodate');
+                    myChart.update('active');
+                }
+            }
+            
+            eel.expose(set_nums);
+            function set_nums(normal, limit){
+                myChart.config.options.scales.y.max = limit + 10
+                myChart.update('active');
+                sessionStorage.setItem('normal', normal);
+                sessionStorage.setItem('limit', limit);
+                $('#normal').html(normal);
+                $('#limit').html(limit);
+                $('#available').html(limit);
+                $('#total').html('0');
+            }
+
+            function getTime(){
+
+                var date = new Date();
+                const hour = date.getHours();
+                const minutes = date.getMinutes();
+                const seconds = date.getSeconds();
+
+                var p_a = "AM";
+
+                var fomratted_hour = hour;
+
+                var fomratted_minutes = minutes;
+
+                var fomratted_seconds = seconds;
+
+
+                if(seconds < 10){
+                    fomratted_seconds = '0' + fomratted_seconds;
+                }
+
+                if(minutes < 10){
+                    fomratted_minutes = '0' + fomratted_minutes;
+                }
+
+                if(hour > 12){
+                    fomratted_hour = hour - 12;
+                    p_a = "PM";
+                    if(fomratted_hour < 10){
+                        fomratted_hour = '0' + fomratted_hour;
+                    }
+                }
+
+                return fomratted_hour.toString() + ':' + fomratted_minutes.toString();
+
+            }
+
+            var colors = ['rgb(42, 187, 155)'];
+
+            var data = {
+                labels: data_hour,
+                datasets: [{
+                    fill: false,
+                    label: '24 Hours History',
+                    backgroundColor: colors,
+                    borderColor: colors,
+                    data: data_value,
+                    tension: 0.2,
+                    pointRadius: 5,
+                    pointHoverRadius: 5
+                }
+            ]
+            };
+
+            var config = {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive : true,
+                    maintainAspectRatio : false,
+                    aspectRatio : 2,
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 0
+                        }
+                    }
+                }
+            };
+            
+            var myChart = new Chart(
+                ctx,
+                config
+            );
+
+            resizefnc()
+
+            $(document).on("keydown", disable);
+
+            function resizefnc(){
+                window.resizeTo(1100, 715);
+            }
+
+            function disable(e) {
+                if (e.keyCode == 116 || e.keyCode == 123 || e.keyCode == 9 ||
+                    e.ctrlKey && e.shiftKey && e.keyCode == 73 ||
+                    e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode ===65 ))  {
+                    e.preventDefault();
+                }
+            }
+        })
+
+        $(window).on('unload', function(e){
+            eel.close_window()
+        })
+
+    </script>
+</body>
+</html>

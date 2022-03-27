@@ -1,0 +1,102 @@
+<div id="settings" class="flex arr">
+    <div class="box_us bg_6 center_center o-pad top">
+        <img class="image_logo borderless small" src="../assets/images/settings_image.png">
+        <p class="wc_ltr_v2 small txt_center bold fnt_clr_1">Set Allowed Capacity</p>
+        <p class="tag tg_ln small">Based on Current Alert Level Status</p>
+        <section class="line bg_7"></section>
+        <br>
+        <form id="form_quarantine">
+            <div class="flex_v2 edit-box">
+                <label class="fnt_clr_2 tg_ln">
+                    Alert Level Status
+                </label>            
+                <div class="spacer_v2"></div>
+                <div class="input-holder_v2">
+                    <select class="st_input" name="limit" id="limit">
+                        <option selected value="">choose status type</option>
+                        <option value="">Alert Level 5</option>
+                        <option value="">Alert Level 4</option>
+                        <option value="">Alert Level 3</option>
+                        <option value="">Alert Level 2</option>
+                        <option value="">Alert Level 1</option>
+                    </select>
+                </div>
+            </div>
+            <p class="tag tg_ln small center">STATUS: <span id="notif"> </span></p>
+            <div class="btn_box auto">
+                <button id="set_btn_1" type="submit" class="full hover_shdw fnt_clr_3 bg_9 btn_borderless" >Proceed</button>
+            </div>
+        </form>
+    </div>  
+</div>
+<script>
+    $(document).ready(function(){
+
+        get_type();
+
+        async function get_type() {
+            $.ajax({
+                method: 'POST',
+                data: {
+                    'data' : ['est_type'],
+                    'token': [sessionStorage.getItem('jwt_token'), sessionStorage.getItem('jwt_key')],
+                },
+                url: 'http://localhost/cimo_desktop/app/decoder.php',
+                success: async function(data){
+                    data = JSON.parse(data);
+                    sessionStorage.setItem('est_type', data[0]);
+                }
+            });
+        }
+
+        $('#limit').change(function(){
+            var e = sessionStorage.getItem('est_type');
+            var li = $('#limit option:selected').text();
+            $.getJSON('iatf_guide.json', function(data){
+                $('#limit option:selected').val(data[e][li]);
+            })
+        })
+
+        $('#form_quarantine').submit(function(event){
+            event.preventDefault();
+            var data = $(this).serializeArray();
+            $('#set_btn_1').removeClass('hover_shdw')
+            .addClass('unclickable');
+            if($('#limit').val() != ""){
+                $.ajax({
+                    method: 'POST',
+                    data: {
+                        'data' : data,
+                        'token' : [sessionStorage.getItem('jwt_token'), sessionStorage.getItem('jwt_key')],
+                    },
+                    url: 'http://localhost/cimo_desktop/app/settings.php',
+                    dataType: 'JSON',
+                    success: function(data){
+                        console.log(data)
+                        if(data.status === "Success"){
+                            setTimeout(() => {
+                                $('#set_btn_1').addClass('hover_shdw')
+                                .removeClass('unclickable');
+                                $('#notif').html(' <i class="fnt_clr_6 fas fa-check-circle"></i> ' + data.message);
+                                sessionStorage.setItem('jwt_token', data.token)
+                                sessionStorage.setItem('CQS_quarantine_sts', $('#limit option:selected').text());
+                            }, 2000);
+                        }else if(data.status === "Error"){
+                            setTimeout(() => {
+                                $('#set_btn_1').addClass('hover_shdw')
+                                .removeClass('unclickable');
+                                $('#notif').html(' <i class="fnt_clr_6 fas fa-times-circle"></i> ' + data.message);
+                            }, 2000);
+                        }
+                    }
+                })
+            }else{
+                setTimeout(() => {
+                    $('#set_btn_1').addClass('hover_shdw')
+                    .removeClass('unclickable');
+                    $('#notif').html(' <i class="fnt_clr_6 fas fa-times-circle"></i> Input is empty');
+                }, 2000);
+            }
+        });
+    });
+</script>
